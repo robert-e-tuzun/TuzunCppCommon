@@ -11,7 +11,7 @@
 
 #include "KnotCommon/InputOutput/I_EmbedReader.h"
 
-namespace DT = Tuzun_Util::Datatypes;
+namespace DT = Util_Common::Datatypes;
 
 namespace Knot_Common::Input_Output {
 

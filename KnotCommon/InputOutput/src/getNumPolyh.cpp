@@ -12,9 +12,9 @@
 #include <iomanip>
 #include <algorithm>
 
-#include "TuzunUtil/CppDatatypes.h"
+#include "KnotCommon/InputOutput/getNumPolyh.h"
 
-namespace DT = Tuzun_Util::Datatypes;
+namespace DT = Util_Common::Datatypes;
 
 namespace Knot_Common::Input_Output {
 

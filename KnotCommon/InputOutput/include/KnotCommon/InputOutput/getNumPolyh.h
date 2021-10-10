@@ -7,9 +7,9 @@
 
 #pragma once
 
-#include "TuzunUtil/CppDatatypes.h"
+#include "UtilCommon/CppDatatypes.h"
 
-namespace DT = Tuzun_Util::Datatypes;
+namespace DT = Util_Common::Datatypes;
 
 namespace Knot_Common::Input_Output {
 
