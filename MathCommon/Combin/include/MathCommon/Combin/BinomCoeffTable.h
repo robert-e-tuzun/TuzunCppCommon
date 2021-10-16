@@ -11,7 +11,7 @@
 
 namespace DT = Util_Common::Datatypes;
 
-namespace Math_Common/Combin {
+namespace Math_Common::Combin {
 
 class BinomCoeffTable
 {
@@ -30,5 +30,5 @@ class BinomCoeffTable
       std::vector<DT::VecInt32> binom_;
 };
 
-} // namespace Math_Common/Combin
+} // namespace Math_Common::Combin
 

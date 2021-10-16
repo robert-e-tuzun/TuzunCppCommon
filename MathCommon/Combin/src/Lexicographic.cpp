@@ -14,7 +14,7 @@
 
 #include "MathCommon/Combin/Lexicographic.h"
 
-namespace Math_Common/Combin {
+namespace Math_Common::Combin {
 
 //-------------------------------------------------------
 
@@ -174,5 +174,5 @@ std::string Lexicographic::output() const
 
 //-------------------------------------------------------
 
-} // namespace Math_Common/Combin
+} // namespace Math_Common::Combin
 

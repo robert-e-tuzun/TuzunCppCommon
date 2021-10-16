@@ -32,7 +32,11 @@ find_package(Boost REQUIRED)
 # not vice versa).
 #
 
+enable_testing()
+
 #add_subdirectory(MathMisc)
 add_subdirectory(Combin)
 #add_subdirectory(GraphTheory)
+
+add_subdirectory(test)
 

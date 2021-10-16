@@ -11,7 +11,7 @@
 
 #include "MathCommon/Combin/KComposition.h"
 
-namespace Math_Common/Combin {
+namespace Math_Common::Combin {
 
 //-------------------------------------------------------------------
 
@@ -147,5 +147,5 @@ void KComposition::setState(const DT::VecInt32& state)
 
 //-------------------------------------------------------------------
 
-} // namespace Math_Common/Combin
+} // namespace Math_Common::Combin
 
