@@ -15,19 +15,19 @@ namespace Math_Common::Combin {
 
 class Lexicographic {
    public:
-      Lexicographic(const DT::VecInt32& minDigits_x,
-                   const DT::VecInt32& maxDigits_x);
-      Lexicographic(const DT::VecInt32& maxDigits_x);
       Lexicographic();
       Lexicographic(const Lexicographic& rhs);
       Lexicographic& operator=(const Lexicographic& rhs);
       ~Lexicographic();
 
+      void init(const DT::VecInt32& minDigits,
+                const DT::VecInt32& maxDigits);
+      void init(const DT::VecInt32& maxDigits);
       void goToBeginning();
       void findNext();
-      void incrementDigit(int Digit);
+      void incrementDigit(DT::Int32 digit);
       void setDigitsTo(const DT::VecInt32& digits_x);
-      bool atLast() const;
+      bool atLastLex() const;
       DT::VecInt32 getCurDigits() const;
 
       std::string output() const;
@@ -35,7 +35,7 @@ class Lexicographic {
    private:
       bool atBeginning_;
 
-      int numDigits_;
+      DT::Int32 numDigits_;
 
       DT::VecInt32 minDigits_;
       DT::VecInt32 maxDigits_;

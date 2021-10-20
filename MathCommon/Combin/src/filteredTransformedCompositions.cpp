@@ -20,46 +20,44 @@ namespace Math_Common::Combin {
 
 //-------------------------------------------------------------------
 
-bool filteredTransformedCompositions(DT::Int32 k, DT::Int32 n,
-      DT::Int32 maxNumCompositionsGenerated, DT::VecInt32& prevComposition,
-      std::function<bool(const DT::VecInt32&)> filterFunction,
-      std::function<DT::VecInt32(const DT::VecInt32&)> transformationFunction,
-      std::vector<DT::VecInt32>& results)
+std::vector<DT::VecInt32> filteredTransformedCompositions(FiltTransfArgs& args)
 {
+   std::vector<DT::VecInt32> results;
+   if (args.atLastComposition)
+      return results;
+
 //     Initialize the composition object.
    KComposition kComp;
-   bool startAtBeginning = (prevComposition[0] == -1);
-   if (startAtBeginning)
-      kComp.init(k, n);
+   bool startAtBeginning = (args.prevComposition[0] == -1);
+   if (startAtBeginning) {
+      kComp.init(args.k, args.n);
+      args.atLastComposition = false;
+   }
    else
-      kComp.setState(prevComposition);
+      kComp.setState(args.prevComposition);
 
 //     Perform the calculation, filtering, and transformation.
    DT::Int32 numCompositions = 0;
    bool done = false;
-   bool atLastComposition = false;
    do {
       kComp.findNextComposition();
       DT::VecInt32 comp = kComp.getComposition();
 
 //     Only if the composition satisfies the filter, perform the transformation.
-      if (filterFunction(comp)) {
-         DT::VecInt32 result = transformationFunction(comp);
+      if (args.filterFunction(comp)) {
+         DT::VecInt32 result = args.transformationFunction(comp);
          results.push_back(result);
          numCompositions++;
-         prevComposition = comp;
+         args.prevComposition = comp;
       }
 
-      atLastComposition = kComp.atLastComposition();
-      done = (atLastComposition ||
-              (numCompositions == maxNumCompositionsGenerated));
+      args.atLastComposition = kComp.atLastComposition();
+      done = (args.atLastComposition ||
+              (numCompositions == args.maxNumCompositionsGenerated));
    }
    while (! done);
 
-//     Remove unused elements.
-   results.erase(results.begin()+numCompositions, results.end());
-
-   return atLastComposition;
+   return results;
 }
 
 //-------------------------------------------------------------------

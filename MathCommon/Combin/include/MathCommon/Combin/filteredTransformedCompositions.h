@@ -15,13 +15,20 @@
 
 namespace Math_Common::Combin {
 
+struct FiltTransfArgs
+{
+   DT::Int32 k;
+   DT::Int32 n;
+   DT::Int32 maxNumCompositionsGenerated;
+   DT::VecInt32 prevComposition;
+   std::function<bool(const DT::VecInt32&)> filterFunction;
+   std::function<DT::VecInt32(const DT::VecInt32&)> transformationFunction;
+   bool atLastComposition;
+};
+
 //-------------------------------------------------------------------
 
-bool filteredTransformedCompositions(DT::Int32 k, DT::Int32 n,
-      DT::Int32 maxNumCompositionsGenerated, DT::VecInt32& prevComposition,
-      std::function<bool(const DT::VecInt32&)> filterFunction,
-      std::function<DT::VecInt32(const DT::VecInt32&)> transformationFunction,
-      std::vector<DT::VecInt32>& chunk);
+std::vector<DT::VecInt32> filteredTransformedCompositions(FiltTransfArgs& args);
 
 //-------------------------------------------------------------------
 

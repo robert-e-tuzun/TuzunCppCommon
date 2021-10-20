@@ -18,27 +18,6 @@ namespace Math_Common::Combin {
 
 //-------------------------------------------------------
 
-Lexicographic::Lexicographic(const DT::VecInt32& minDigits_x,
-                           const DT::VecInt32& maxDigits_x)
-:minDigits_(minDigits_x), maxDigits_(maxDigits_x)
-{
-   numDigits_ = maxDigits_.size();
-   goToBeginning();
-}
-
-//-------------------------------------------------------
-
-Lexicographic::Lexicographic(const DT::VecInt32& maxDigits_x)
-:maxDigits_(maxDigits_x)
-{
-   numDigits_ = maxDigits_.size();
-   minDigits_.assign(numDigits_, 0);
-
-   goToBeginning();
-}
-
-//-------------------------------------------------------
-
 Lexicographic::Lexicographic()
 {
 }
@@ -87,6 +66,29 @@ Lexicographic::~Lexicographic()
 
 //-------------------------------------------------------
 
+void Lexicographic::init(const DT::VecInt32& minDigits,
+                         const DT::VecInt32& maxDigits)
+{
+   minDigits_ = minDigits;
+   maxDigits_ = maxDigits;
+   numDigits_ = maxDigits_.size();
+
+   goToBeginning();
+}
+
+//-------------------------------------------------------
+
+void Lexicographic::init(const DT::VecInt32& maxDigits)
+{
+   maxDigits_ = maxDigits;
+   numDigits_ = maxDigits_.size();
+   minDigits_.assign(numDigits_, 0);
+
+   goToBeginning();
+}
+
+//-------------------------------------------------------
+
 void Lexicographic::goToBeginning()
 {
    atBeginning_ = true;
@@ -103,7 +105,7 @@ void Lexicographic::findNext()
    else {
       digits_[numDigits_-1]++;
 
-      for (int i=numDigits_-1; i>=1; i--)
+      for (DT::Int32 i=numDigits_-1; i>=1; --i)
          if (digits_[i] > maxDigits_[i]) {
             digits_[i] = minDigits_[i];
             digits_[i-1]++;
@@ -113,21 +115,14 @@ void Lexicographic::findNext()
 
 //-------------------------------------------------------
 
-void Lexicographic::incrementDigit(int digit)
+void Lexicographic::incrementDigit(DT::Int32 digit)
 {
-//     If at beginning, set digits to their minimum values.
-
-   if (atBeginning_) {
-      digits_ = minDigits_;
-      atBeginning_ = false;
-   }
-
 //     Increment desired digit.  Working backwards in digit number, if
 //     the digit exeeds its maximum value, set the digit to its minimum
 //     value and increment previous digit.
 
    digits_[digit]++;
-   for (int i=digit; i>=1; i--)
+   for (DT::Int32 i=digit; i>=1; --i)
       if (digits_[i] > maxDigits_[i]) {
          digits_[i] = minDigits_[i];
          digits_[i-1]++;
@@ -135,7 +130,7 @@ void Lexicographic::incrementDigit(int digit)
 
 //     Set later digits equal to their minDigits_.
 
-   for (int i=(digit+1); i<numDigits_; i++)
+   for (DT::Int32 i=(digit+1); i<numDigits_; ++i)
       digits_[i] = minDigits_[i];
 }
 
@@ -149,7 +144,7 @@ void Lexicographic::setDigitsTo(const DT::VecInt32& digits_x)
 
 //-------------------------------------------------------
 
-bool Lexicographic::atLast() const
+bool Lexicographic::atLastLex() const
 {
    return (digits_ == maxDigits_);
 }
@@ -166,7 +161,7 @@ DT::VecInt32 Lexicographic::getCurDigits() const
 std::string Lexicographic::output() const
 {
    std::stringstream s;
-   for (int i=0; i<numDigits_; i++)
+   for (DT::Int32 i=0; i<numDigits_; ++i)
       s << " " << digits_[i];
 
    return s.str();
