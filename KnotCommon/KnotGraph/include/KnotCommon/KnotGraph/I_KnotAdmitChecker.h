@@ -16,8 +16,7 @@ namespace Knot_Common::Knot_Graph {
 class I_KnotAdmitChecker
 {
    public:
-      I_KnotAdmitChecker();
-      ~I_KnotAdmitChecker() {};
+      virtual ~I_KnotAdmitChecker() {};
 
       virtual void init(const std::vector<DT::VecInt32>& conTable) = 0;
       virtual DT::Int32 numLoops(const DT::VecInt32& cts) = 0;

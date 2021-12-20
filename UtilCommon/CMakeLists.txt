@@ -22,12 +22,14 @@ find_package(Boost REQUIRED)
 
 set(SOURCE_FILES
     src/Blackboard.cpp
+    src/DIHelper.cpp
    )
 
 set(HEADER_FILES
     include/UtilCommon/Blackboard.h
     include/UtilCommon/CppDatatypes.h
     include/UtilCommon/sortByRank.h
+    include/UtilCommon/DIHelper.h
    )
 
 add_library(UtilCommon STATIC ${SOURCE_FILES} ${HEADER_FILES})

@@ -1,23 +1,23 @@
-# KnotCommon/KnotCommon/CMakeLists.txt
+# KnotCommon/KnotGraph/CMakeLists.txt
 
 # Set the project name and version.
-project(KnotCommon VERSION 1.0 LANGUAGES CXX)
+project(KnotGraph VERSION 1.0 LANGUAGES CXX)
 
 set(SOURCE_FILES
     src/KnotAdmitChecker.cpp
    )
 
-add_library(KnotCommon ${SOURCE_FILES})
+add_library(KnotGraph ${SOURCE_FILES})
 
-target_include_directories(KnotCommon
+target_include_directories(KnotGraph
     PRIVATE include
 )
 
-target_link_libraries(KnotCommon UtilCommon)
+target_link_libraries(KnotGraph UtilCommon)
 
 # Install and export the library.
 
-InstallExportLib(KnotCommon
+InstallExportLib(KnotGraph
                  "${CMAKE_INSTALL_LIBDIR}"
                  "${CMAKE_INSTALL_BINDIR}"
                  "${CMAKE_INSTALL_INCLUDEDIR}"

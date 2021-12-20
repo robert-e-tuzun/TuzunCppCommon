@@ -16,9 +16,9 @@ find_package(Combin
 find_package(MathMisc
              PATHS ${CMAKE_INSTALL_PREFIX}/lib/cmake/MathMisc
             )
-find_package(GraphTheory
-             PATHS ${CMAKE_INSTALL_PREFIX}/lib/cmake/GraphTheory
-            )
+#find_package(GraphTheory
+#             PATHS ${CMAKE_INSTALL_PREFIX}/lib/cmake/GraphTheory
+#            )
 
 # Enable the finding of InstallExportLib.cmake by adding the directory it's
 # in to CMAKE_MODULE_PATH.
@@ -42,5 +42,5 @@ add_subdirectory(KnotGraph)
 
 # Add subdirectory for testing.
 
-#add_subdirectory(test)
+add_subdirectory(test)
 

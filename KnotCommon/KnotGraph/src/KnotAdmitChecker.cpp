@@ -40,19 +40,19 @@ void KnotAdmitChecker::init(const std::vector<DT::VecInt32>& conTable)
 
 DT::Int32 KnotAdmitChecker::numLoops(const DT::VecInt32& cts)
 {
-   DT::Int32 numLoops = 0;
+   DT::Int32 numLoopsIn = 0;
    DT::Int32 numEndpointsUsed = 0;
    initLoopVars();
 
    bool done = false;
    do {
       numEndpointsUsed += numEndpointsInNextLoop(cts);
-      numLoops++;
+      numLoopsIn++;
       done = (numEndpointsUsed == 4*numVertices_);
    }
    while (! done);
 
-   return numLoops;
+   return numLoopsIn;
 }
 
 //----------------------------------------------------------------
@@ -70,27 +70,28 @@ void KnotAdmitChecker::initLoopVars()
 DT::Int32 KnotAdmitChecker::numEndpointsInNextLoop(const DT::VecInt32& cts)
 {
    auto [startVertex, startLoc] = findFirstUnusedEndpoint(cts);
-   DT::Int32 nextVertex = startVertex;
-   DT::Int32 nextLoc = startLoc;
+   DT::Int32 curVertex = startVertex;
+   DT::Int32 curLoc = startLoc;
 
    DT::Int32 numEndpointsInLoop = 0;
    bool done = false;
    do {
-//     Set current vertex to previous and count in loop.
-      auto [curVertex, curLoc] =
-           std::pair<DT::Int32, DT::Int32>({ nextVertex, nextLoc });
+//     Set previous vertex to current and count in loop.
       isEndpointUsed_[curVertex][curLoc] = true;
+      DT::Int32 prevVertex = curVertex;
+      DT::Int32 prevLoc = curLoc;
       numEndpointsInLoop++;
 
 //     Find partner location within vertex given ct and count in loop.
-      DT::Int32 partnerLoc = partners4_[curLoc][cts[curVertex]];
-      isEndpointUsed_[curVertex][partnerLoc] = true;
+      DT::Int32 partnerLoc = partners4_[cts[prevVertex]-1][prevLoc];
+      isEndpointUsed_[prevVertex][partnerLoc] = true;
       numEndpointsInLoop++;
 
 //     Find connection of partner location to outside vertex.
-      auto [nextVertex, nextLoc] =
-            findEndpointAdjacentTo(curVertex, partnerLoc);
-      done = ((nextVertex == startVertex) && (nextLoc == startLoc));
+      auto ep = findEndpointAdjacentTo(prevVertex, partnerLoc);
+      curVertex = ep.first;
+      curLoc = ep.second;
+      done = ((curVertex == startVertex) && (curLoc == startLoc));
    }
    while (! done);
 
@@ -128,7 +129,7 @@ KnotAdmitChecker::findEndpointAdjacentTo(DT::Int32 vertex, DT::Int32 loc)
 
    DT::Int32 adjacentLoc = -1;
    for (DT::Int32 j=0; j<conTable_[vertex].size(); ++j)
-      if (conTable_[adjacentVertex][j] == loc) {
+      if (conTable_[adjacentVertex][j] == vertex) {
          adjacentLoc = j;
          break;
       }
