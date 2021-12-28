@@ -13,7 +13,7 @@ target_include_directories(KnotGraph
     PRIVATE include
 )
 
-target_link_libraries(KnotGraph UtilCommon)
+target_link_libraries(KnotGraph InputOutput UtilCommon)
 
 # Install and export the library.
 
