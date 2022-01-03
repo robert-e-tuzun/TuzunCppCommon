@@ -22,9 +22,9 @@ namespace Util_Common::DI {
 //----------------------------------------------------------------
 
 void addExistingDependency(
-  DepMap& depMap, const DT::String& className, const std::any& dependency)
+  DepMap& depMap, const DepMap& depMapThis, const DT::String& dependencyName)
 {
-   depMap[className] = dependency;
+   depMap[dependencyName] = depMapThis.at(dependencyName);
 }
 
 //----------------------------------------------------------------

@@ -55,7 +55,7 @@ void createAndAddDependency(
 //----------------------------------------------------------------
 
 void addExistingDependency(
-  DepMap& depMap, const DT::String& className, const std::any& dependency);
+  DepMap& depMap, const DepMap& depMapThis, const DT::String& dependencyName);
 
 DepMap createDependencyMap(const DepMap& depMapAll,
                            const DT::VecString& dependencyNames);
